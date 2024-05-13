@@ -1,16 +1,15 @@
-const quickSort = (arr) => {
-  if (arr.length <= 1) {
-    return arr;
+function uniquePaths(m, n) {
+  const dp = Array.from(Array(m), () => Array(n).fill(0));
+  for (let i = 0; i < m; i++) {
+    dp[i][0] = 1;
   }
-  const pivot = arr[arr.length - 1];
-  const left = [];
-  const right = [];
-  for (let i = 0; i < arr.length - 1; i++) {
-    if (arr[i] < pivot) {
-      left.push(arr[i]);
-    } else {
-      right.push(arr[i]);
+  for (let j = 0; j < n; j++) {
+    dp[0][j] = 1;
+  }
+  for (let i = 1; i < m; i++) {
+    for (let j = 1; j < n; j++) {
+      dp[i][j] = dp[i - 1][j] + dp[i][j - 1];
     }
   }
-  return quickSort(left).concat(pivot, quickSort(right));
-};
+  return dp[m - 1][n - 1];
+}
